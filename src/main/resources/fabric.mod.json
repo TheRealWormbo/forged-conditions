@@ -1,0 +1,34 @@
+{
+	"schemaVersion": 1,
+	"id": "forged-conditions",
+	"version": "${version}",
+	"name": "Forged Conditions",
+	"description": "A datagen add-on that translates Fabric load conditions to NeoForge data load conditions and stores both in generated files.",
+	"authors": [
+		"Wormbo"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "MIT",
+	"icon": "assets/forged-conditions/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"de.wormbo.forgedconditions.ForgedConditions"
+		],
+		"fabric-datagen": [
+			"de.wormbo.forgedconditions.ForgedConditionsDataGenerator"
+		]
+	},
+	"mixins": [
+		"forged-conditions.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

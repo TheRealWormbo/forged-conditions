@@ -1,0 +1,24 @@
+{
+	"required": true,
+	"package": "de.wormbo.forgedconditions.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"AllModsLoadedResourceConditionMixin",
+		"AndResourceConditionMixin",
+		"AnyModsLoadedResourceConditionMixin",
+		"DataProviderMixin",
+		"FabricDataGenHelperMixin",
+		"NotResourceConditionMixin",
+		"OrResourceConditionMixin",
+		"RegistryContainsResourceConditionMixin",
+		"ResourceConditionMixin",
+		"TagsPopulatedResourceConditionMixin",
+		"TrueResourceConditionMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

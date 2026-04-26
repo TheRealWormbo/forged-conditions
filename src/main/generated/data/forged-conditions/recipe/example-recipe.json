@@ -1,0 +1,107 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:and",
+      "values": [
+        {
+          "condition": "fabric:any_mods_loaded",
+          "values": [
+            "craftable_endportal_frames",
+            "better-end-access"
+          ]
+        },
+        {
+          "condition": "fabric:registry_contains",
+          "registry": "minecraft:item",
+          "values": [
+            "minecraft:nether_star",
+            "minecraft:end_stone"
+          ]
+        },
+        {
+          "condition": "fabric:registry_contains",
+          "registry": "minecraft:block",
+          "values": [
+            "minecraft:end_portal_frame"
+          ]
+        },
+        {
+          "condition": "fabric:not",
+          "value": {
+            "condition": "fabric:tags_populated",
+            "registry": "minecraft:item",
+            "values": [
+              "minecraft:pickaxes",
+              "minecraft:shovels"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:and",
+      "values": [
+        {
+          "type": "neoforge:or",
+          "values": [
+            {
+              "type": "neoforge:mod_loaded",
+              "modid": "craftable_endportal_frames"
+            },
+            {
+              "type": "neoforge:mod_loaded",
+              "modid": "better-end-access"
+            }
+          ]
+        },
+        {
+          "type": "neoforge:and",
+          "values": [
+            {
+              "type": "neoforge:item_exists",
+              "item": "minecraft:nether_star"
+            },
+            {
+              "type": "neoforge:item_exists",
+              "item": "minecraft:end_stone"
+            }
+          ]
+        },
+        {
+          "type": "neoforge:or",
+          "values": [
+            {
+              "type": "neoforge:tag_empty",
+              "tag": "minecraft:pickaxes"
+            },
+            {
+              "type": "neoforge:tag_empty",
+              "tag": "minecraft:shovels"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "item": "minecraft:end_stone"
+    },
+    "S": {
+      "item": "minecraft:nether_star"
+    }
+  },
+  "pattern": [
+    " E ",
+    "ESE",
+    " E "
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:end_portal_frame"
+  }
+}
