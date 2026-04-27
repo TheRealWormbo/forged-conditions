@@ -14,6 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Arrays;
 
+/**
+ * Hooks into the Fabric datagen logic that adds the Fabric resource condition entry to the JSON output.
+ */
 @SuppressWarnings("UnstableApiUsage")
 @Mixin(FabricDataGenHelper.class)
 public abstract class FabricDataGenHelperMixin {
@@ -25,7 +28,7 @@ public abstract class FabricDataGenHelperMixin {
 		baseObject.add(ForgedConditions.CONDITIONS_KEY, LoadCondition.LIST_CODEC.encodeStart(JsonOps.INSTANCE,
 				Arrays.stream(conditions)
 						.map(ConvertibleCondition.class::cast)
-						.map(ConvertibleCondition::convert)
+						.map(ConvertibleCondition::forgedconditions_convert)
 						.toList()
 		).getOrThrow());
 	}

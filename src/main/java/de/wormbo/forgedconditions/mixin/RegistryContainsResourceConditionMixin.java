@@ -1,8 +1,8 @@
 package de.wormbo.forgedconditions.mixin;
 
 import de.wormbo.forgedconditions.ForgedConditions;
-import de.wormbo.forgedconditions.conditions.AndCondition;
-import de.wormbo.forgedconditions.conditions.ItemExistsCondition;
+import de.wormbo.forgedconditions.conditions.AndLoadCondition;
+import de.wormbo.forgedconditions.conditions.ItemExistsLoadCondition;
 import de.wormbo.forgedconditions.conditions.LoadCondition;
 import de.wormbo.forgedconditions.converter.ConvertibleCondition;
 import net.fabricmc.fabric.impl.resource.conditions.conditions.RegistryContainsResourceCondition;
@@ -13,6 +13,12 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.List;
 
+/**
+ * Adds Neoforge codec conversion for the "registry_contains" resource condition. Conversion is only supported if the
+ * resource condition tests against the items registry. Depending on the number of specified item IDs, the conversion
+ * either returns a single "item_exists" condition or an AND condition wrapping one "item_exists" condition for each
+ * specified item ID.
+ */
 @SuppressWarnings("UnstableApiUsage")
 @Mixin(RegistryContainsResourceCondition.class)
 public abstract class RegistryContainsResourceConditionMixin implements ConvertibleCondition {
@@ -22,9 +28,8 @@ public abstract class RegistryContainsResourceConditionMixin implements Converti
 	@Shadow
 	public abstract List<ResourceLocation> entries();
 
-	@SuppressWarnings("AddedMixinMembersNamePattern")
 	@Override
-	public LoadCondition convert() {
+	public LoadCondition forgedconditions_convert() {
 		if (!Registries.ITEM.location().equals(registry())) {
 			ForgedConditions.LOGGER.warn(
 					"Unsupported registry '{}' for registry_contains condition, only '{}' is supported",
@@ -33,8 +38,8 @@ public abstract class RegistryContainsResourceConditionMixin implements Converti
 		}
 		List<ResourceLocation> entries = entries();
 		if (entries.size() == 1) {
-			return new ItemExistsCondition(entries.getFirst());
+			return new ItemExistsLoadCondition(entries.getFirst());
 		}
-		return new AndCondition(List.copyOf(entries.stream().map(ItemExistsCondition::new).toList()));
+		return new AndLoadCondition(List.copyOf(entries.stream().map(ItemExistsLoadCondition::new).toList()));
 	}
 }

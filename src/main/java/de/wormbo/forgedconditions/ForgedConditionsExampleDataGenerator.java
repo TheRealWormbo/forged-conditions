@@ -24,7 +24,12 @@ import java.util.concurrent.CompletableFuture;
 
 import static de.wormbo.forgedconditions.ForgedConditions.fcId;
 
-public class ForgedConditionsDataGenerator implements DataGeneratorEntrypoint {
+/**
+ * This is an example datagen implementation that showcases the effects of this mod on a generated recipe and its
+ * unlock advancement. See {@code data/forged-conditions/recipe/example-recipe.json} and
+ * {@code data/forged-conditions/advancement/recipes/decorations/example-recipe.json} files for the generated output.
+ */
+public class ForgedConditionsExampleDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
@@ -54,8 +59,10 @@ public class ForgedConditionsDataGenerator implements DataGeneratorEntrypoint {
 											new RegistryContainsResourceCondition(Registries.ITEM.location(),
 													BuiltInRegistries.ITEM.getKey(Items.NETHER_STAR),
 													BuiltInRegistries.ITEM.getKey(Items.END_STONE)),
+											// this "block exists" condition will be ignored for conversion:
 											new RegistryContainsResourceCondition(Registries.BLOCK.location(),
 													BuiltInRegistries.BLOCK.getKey(Blocks.END_PORTAL_FRAME)),
+											// this NOT condition causes a double negation in the conversion:
 											new NotResourceCondition(
 													new TagsPopulatedResourceCondition(ItemTags.PICKAXES,
 															ItemTags.SHOVELS))
